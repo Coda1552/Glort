@@ -5,7 +5,7 @@
   "ore_veins_enabled": false,
   "legacy_random_source": true,
   "default_block": {
-    "Name": "minecraft:blackstone"
+    "Name": "glort:scrag"
   },
   "default_fluid": {
     "Name": "minecraft:water",
@@ -15,7 +15,7 @@
   },
   "noise": {
     "min_y": -64,
-    "height": 192,
+    "height": 320,
     "size_horizontal": 1,
     "size_vertical": 2
   },
@@ -152,7 +152,7 @@
           {
             "type": "minecraft:block",
             "result_state": {
-              "Name": "minecraft:blackstone"
+              "Name": "glort:scrag"
             }
           }
         ]
