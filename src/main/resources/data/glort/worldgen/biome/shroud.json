@@ -1,0 +1,59 @@
+{
+  "temperature": 0.5,
+  "downfall": 0.5,
+  "precipitation": "rain",
+  "temperature_modifier": "none",
+  "effects": {
+    "sky_color": 8454134,
+    "fog_color": 12777215,
+    "water_color": 7120194,
+    "water_fog_color": 272436,
+    "mood_sound": {
+      "sound": "minecraft:ambient.cave",
+      "tick_delay": 6000,
+      "block_search_extent": 8,
+      "offset": 2
+    }
+  },
+  "spawners": {
+    "ambient": [
+    ],
+    "axolotls": [],
+    "creature": [],
+    "misc": [],
+    "monster": [
+    ],
+    "underground_water_creature": [
+    ],
+    "water_ambient": [
+    ],
+    "water_creature": [
+    ]
+  },
+  "spawn_costs": {},
+  "carvers": {
+    "air": [
+    ]
+  },
+  "features": [
+    [],
+    [
+    ],
+    [
+    ],
+    [
+    ],
+    [],
+    [],
+    [
+    ],
+    [],
+    [
+    ],
+    [
+    ],
+    [
+      "minecraft:freeze_top_layer"
+    ]
+  ]
+}
