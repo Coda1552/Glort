@@ -1,6 +1,7 @@
 package coda.glort.registry;
 
 import coda.glort.Glort;
+import coda.glort.common.items.AllegiantArrowItem;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.Item;
@@ -19,4 +20,5 @@ public class GlortItems {
     };
 
     public static final RegistryObject<Item> SCRAG = ITEMS.register("scrag", () -> new BlockItem(GlortBlocks.SCRAG.get(), new Item.Properties().tab(GROUP)));
+    public static final RegistryObject<Item> ALLEGIANT_ARROW = ITEMS.register("allegiant_arrow", () -> new AllegiantArrowItem(new Item.Properties().tab(GROUP)));
 }

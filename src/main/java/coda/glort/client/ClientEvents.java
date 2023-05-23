@@ -1,6 +1,7 @@
 package coda.glort.client;
 
 import coda.glort.Glort;
+import coda.glort.client.renderer.AllegiantArrowRenderer;
 import coda.glort.registry.GlortEntities;
 import net.minecraft.client.renderer.entity.EntityRenderers;
 import net.minecraftforge.api.distmarker.Dist;
@@ -14,7 +15,7 @@ public class ClientEvents {
 
     @SubscribeEvent
     public static void clientSetup(final FMLClientSetupEvent e) {
-        //EntityRenderers.register(GlortEntities.CROAKER.get(), CroakerRenderer::new);
+        EntityRenderers.register(GlortEntities.ALLEGIANT_ARROW.get(), AllegiantArrowRenderer::new);
     }
 
     @SubscribeEvent
