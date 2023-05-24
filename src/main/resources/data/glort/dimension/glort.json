@@ -1,48 +1,11 @@
 {
-  "type": "minecraft:overworld",
+  "type": "glort:glort",
   "generator": {
     "type": "minecraft:noise",
     "settings": "minecraft:overworld",
     "biome_source": {
-      "type": "minecraft:multi_noise",
-      "biomes": [
-        {
-          "biome": "glort:abhorrent_swamp",
-          "parameters": {
-            "temperature": 0.3,
-            "humidity": 0,
-            "continentalness": 0,
-            "erosion": 0,
-            "weirdness": 0,
-            "depth": 0,
-            "offset": 0
-          }
-        },
-        {
-          "biome": "glort:icky_thicket",
-          "parameters": {
-            "temperature": 0.9,
-            "humidity": 0,
-            "continentalness": 0,
-            "erosion": 0,
-            "weirdness": 0,
-            "depth": 0,
-            "offset": 0
-          }
-        },
-        {
-          "biome": "glort:lagoon",
-          "parameters": {
-            "temperature": 0,
-            "humidity": 0,
-            "continentalness": 0,
-            "erosion": 0,
-            "weirdness": 0,
-            "depth": 0,
-            "offset": 0
-          }
-        }
-      ]
+      "type": "minecraft:fixed",
+      "biome": "glort:shroud"
     }
   }
 }

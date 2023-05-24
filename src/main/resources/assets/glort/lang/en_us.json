@@ -2,4 +2,8 @@
   "entity.glort.croaker": "Croaker",
 
   "item.glort.croaker_spawn_egg": "Croaker Spawn Egg"
+  "itemGroup.glort": "Glort",
+
+  "item.glort.allegiant_arrow": "Arrow of Allegiance",
+  "block.glort.scrag": "Scrag"
 }

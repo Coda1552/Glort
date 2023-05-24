@@ -1,5 +1,6 @@
 package coda.glort;
 
+import coda.glort.registry.GlortBlocks;
 import coda.glort.registry.GlortEntities;
 import coda.glort.registry.GlortItems;
 import net.minecraftforge.common.MinecraftForge;
@@ -19,6 +20,7 @@ public class Glort {
 		bus.addListener(GlortEntities::registerSpawnPlacements);
 
 		GlortEntities.ENTITIES.register(bus);
+		GlortBlocks.BLOCKS.register(bus);
 		GlortItems.ITEMS.register(bus);
 	}
 }
