@@ -4,11 +4,16 @@ import coda.glort.registry.GlortEntities;
 import com.google.common.collect.ImmutableMap;
 import it.unimi.dsi.fastutil.ints.Int2ObjectMap;
 import it.unimi.dsi.fastutil.ints.Int2ObjectOpenHashMap;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.network.syncher.EntityDataAccessor;
+import net.minecraft.network.syncher.EntityDataSerializers;
+import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.stats.Stats;
 import net.minecraft.util.RandomSource;
+import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.damagesource.DamageSource;
@@ -19,16 +24,14 @@ import net.minecraft.world.entity.ai.goal.*;
 import net.minecraft.world.entity.monster.*;
 import net.minecraft.world.entity.npc.AbstractVillager;
 import net.minecraft.world.entity.npc.VillagerTrades;
-import net.minecraft.world.entity.npc.WanderingTrader;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
-import net.minecraft.world.item.alchemy.PotionUtils;
-import net.minecraft.world.item.alchemy.Potions;
 import net.minecraft.world.item.trading.MerchantOffer;
 import net.minecraft.world.item.trading.MerchantOffers;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.level.block.Block;
 import org.jetbrains.annotations.Nullable;
 
@@ -37,6 +40,7 @@ public class Croaker extends AbstractVillager {
             1, new VillagerTrades.ItemListing[]{new ItemsForFlies(Items.SEA_PICKLE, 2, 1, 5, 1), new ItemsForFlies(Items.SLIME_BALL, 4, 1, 5, 1), new ItemsForFlies(Items.MUD, 2, 1, 5, 1)},
             2, new VillagerTrades.ItemListing[]{new ItemsForFlies(Items.TROPICAL_FISH_BUCKET, 5, 1, 4, 1), new ItemsForFlies(Items.PUFFERFISH_BUCKET, 5, 1, 4, 1), new ItemsForFlies(Items.MOSS_BLOCK, 3, 1, 6, 1)}
             ));
+    private static final EntityDataAccessor<Integer> VARIANT = SynchedEntityData.defineId(Croaker.class, EntityDataSerializers.INT);
 
     public Croaker(EntityType<? extends AbstractVillager> pEntityType, Level pLevel) {
         super(pEntityType, pLevel);
@@ -110,10 +114,51 @@ public class Croaker extends AbstractVillager {
         }
     }
 
+    protected void defineSynchedData() {
+        super.defineSynchedData();
+        this.entityData.define(VARIANT, 0);
+    }
+
+    public int getVariant() {
+        return this.entityData.get(VARIANT);
+    }
+
+    private void setVariant(int variant) {
+        this.entityData.set(VARIANT, variant);
+    }
+
+    public void addAdditionalSaveData(CompoundTag compound) {
+        super.addAdditionalSaveData(compound);
+        compound.putInt("Variant", this.getVariant());
+    }
+
+    public void readAdditionalSaveData(CompoundTag compound) {
+        super.readAdditionalSaveData(compound);
+        setVariant(compound.getInt("Variant"));
+    }
+
+    @Nullable
+    public SpawnGroupData finalizeSpawn(ServerLevelAccessor worldIn, DifficultyInstance difficultyIn, MobSpawnType reason, @Nullable SpawnGroupData spawnDataIn, @Nullable CompoundTag dataTag) {
+        super.finalizeSpawn(worldIn, difficultyIn, reason, spawnDataIn, dataTag);
+
+        if (dataTag != null && dataTag.contains("Variant", 3)) {
+            this.setVariant(dataTag.getInt("Variant"));
+        }
+        else {
+            setVariant(random.nextInt(4));
+        }
+
+        return spawnDataIn;
+    }
+
     @Nullable
     @Override
     public AgeableMob getBreedOffspring(ServerLevel pLevel, AgeableMob pOtherParent) {
-        return GlortEntities.CROAKER.get().create(pLevel);
+        Croaker croaker = GlortEntities.CROAKER.get().create(pLevel);;
+
+        croaker.setVariant(random.nextInt(4));
+
+        return croaker;
     }
 
     protected SoundEvent getAmbientSound() {

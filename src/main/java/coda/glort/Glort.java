@@ -1,6 +1,7 @@
 package coda.glort;
 
 import coda.glort.registry.GlortEntities;
+import coda.glort.registry.GlortItems;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.fml.common.Mod;
@@ -18,5 +19,6 @@ public class Glort {
 		bus.addListener(GlortEntities::registerSpawnPlacements);
 
 		GlortEntities.ENTITIES.register(bus);
+		GlortItems.ITEMS.register(bus);
 	}
 }
