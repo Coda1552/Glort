@@ -25,6 +25,4 @@ public class GlortEntities {
         //event.register(GlortEntities.CROAKER.get(), SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Croaker::canSpawn, SpawnPlacementRegisterEvent.Operation.REPLACE);
     }
 
-    public static final RegistryObject<EntityType<Croaker>> CROAKER = ENTITIES.register("croaker", () -> EntityType.Builder.of(Croaker::new, MobCategory.CREATURE).sized(0.6F, 1.75F).setTrackingRange(16).updateInterval(1).build("croaker"));
-
 }

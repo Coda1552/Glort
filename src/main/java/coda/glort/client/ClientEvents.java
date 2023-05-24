@@ -18,10 +18,11 @@ public class ClientEvents {
     @SubscribeEvent
     public static void clientSetup(final FMLClientSetupEvent e) {
         EntityRenderers.register(GlortEntities.ALLEGIANT_ARROW.get(), AllegiantArrowRenderer::new);
+        EntityRenderers.register(GlortEntities.CROAKER.get(), CroakerRenderer::new);
     }
 
     @SubscribeEvent
     public static void registerLayers(EntityRenderersEvent.RegisterLayerDefinitions e) {
-        //e.registerLayerDefinition(GlortModelLayers.CROAKER, CroakerModel::createBodyLayer);
+        e.registerLayerDefinition(GlortModelLayers.CROAKER, CroakerModel::createBodyLayer);
     }
 }

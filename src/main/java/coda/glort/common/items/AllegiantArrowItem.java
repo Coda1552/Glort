@@ -30,6 +30,8 @@ public class AllegiantArrowItem extends Item {
 
         pLevel.addFreshEntity(arrow);
 
+        pPlayer.getItemInHand(pUsedHand).shrink(1);
+
         return super.use(pLevel, pPlayer, pUsedHand);
     }
 }
