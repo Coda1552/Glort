@@ -2,32 +2,32 @@ package coda.glort.common.entities;
 
 import coda.glort.registry.GlortEntities;
 import coda.glort.registry.GlortItems;
-import com.sun.jna.platform.win32.Sspi;
 import net.minecraft.core.particles.DustParticleOptions;
 import net.minecraft.network.protocol.game.ClientboundGameEventPacket;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvents;
-import net.minecraft.util.Mth;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.projectile.AbstractArrow;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.enchantment.EnchantmentHelper;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.EntityHitResult;
-import net.minecraft.world.phys.Vec2;
 import net.minecraft.world.phys.Vec3;
 
 public class AllegiantArrow extends AbstractArrow {
+    private boolean retrieving;
 
     public AllegiantArrow(EntityType<? extends AbstractArrow> pEntityType, Level pLevel) {
         super(pEntityType, pLevel);
         pickup = Pickup.DISALLOWED;
+        retrieving = false;
     }
 
     public AllegiantArrow(Level pLevel, double pX, double pY, double pZ) {
@@ -65,15 +65,36 @@ public class AllegiantArrow extends AbstractArrow {
                 Vec3 vec3 = new Vec3(player.getX() - this.getX(), player.getY() + (double)player.getEyeHeight() - this.getY(), player.getZ() - this.getZ());
                 this.setDeltaMovement(this.getDeltaMovement().add(vec3.normalize().scale(0.25D)));
 
+                retrieving = true;
+
                 if (inGround) {
                     setDeltaMovement(getDeltaMovement().x, 0.1D, getDeltaMovement().y);
                     inGround = false;
                 }
-            } else {
+            }
+            else {
                 Vec3 viewVec = player.getViewVector(1.0F);
 
+                retrieving = false;
                 setDeltaMovement(viewVec.scale(0.9D));
             }
+        }
+    }
+
+    // Crappy way to get around the sound spam when trying to retrieve a stuck arrow...
+    @Override
+    protected void onHitBlock(BlockHitResult pResult) {
+        if (retrieving) {
+            BlockState blockstate = this.level.getBlockState(pResult.getBlockPos());
+            blockstate.onProjectileHit(this.level, blockstate, pResult, this);
+            Vec3 vec3 = pResult.getLocation().subtract(this.getX(), this.getY(), this.getZ());
+            this.setDeltaMovement(vec3);
+            Vec3 vec31 = vec3.normalize().scale(0.05F);
+            this.setPosRaw(this.getX() - vec31.x, this.getY() - vec31.y, this.getZ() - vec31.z);
+            this.shakeTime = 7;
+        }
+        else {
+            super.onHitBlock(pResult);
         }
     }
 
