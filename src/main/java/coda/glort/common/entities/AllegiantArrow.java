@@ -106,7 +106,7 @@ public class AllegiantArrow extends AbstractArrow {
             if (player == entity) {
                 discard();
 
-                if (!player.getInventory().add(new ItemStack(GlortItems.ALLEGIANT_ARROW.get()))) {
+                if (!player.isCreative() && !player.getInventory().add(new ItemStack(GlortItems.ALLEGIANT_ARROW.get()))) {
                     Vec3 pos = player.position();
 
                     level.addFreshEntity(new ItemEntity(level, pos.x, pos.y, pos.z, new ItemStack(GlortItems.ALLEGIANT_ARROW.get())));
