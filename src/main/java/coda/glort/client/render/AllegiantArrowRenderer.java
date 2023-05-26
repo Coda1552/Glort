@@ -1,4 +1,4 @@
-package coda.glort.client.renderer;
+package coda.glort.client.render;
 
 import coda.glort.common.entities.AllegiantArrow;
 import net.minecraft.client.renderer.entity.ArrowRenderer;

@@ -3,7 +3,7 @@ package coda.glort.client;
 import coda.glort.Glort;
 import coda.glort.client.model.CroakerModel;
 import coda.glort.client.render.CroakerRenderer;
-import coda.glort.client.renderer.AllegiantArrowRenderer;
+import coda.glort.client.render.AllegiantArrowRenderer;
 import coda.glort.registry.GlortEntities;
 import net.minecraft.client.renderer.entity.EntityRenderers;
 import net.minecraftforge.api.distmarker.Dist;
